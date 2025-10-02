@@ -1,34 +1,48 @@
-import { Component, computed, inject } from '@angular/core';
-import { AsyncPipe } from "@angular/common";
+import { Component, ViewChild } from '@angular/core';
+import { map, take } from 'rxjs/operators';
 import { MenubarModule } from 'primeng/menubar';
+import { ButtonModule } from 'primeng/button';
+import { LoginComponent } from '../../features/login/login.component';
 import { AuthService } from '../../core/services/auth-service.service';
-import { toSignal } from '@angular/core/rxjs-interop';
-import { CommonModule } from '@angular/common';
+import { Observable } from 'rxjs';
+import { AsyncPipe, NgClass } from '@angular/common';
+
 
 @Component({
   selector: 'app-menu',
   standalone: true,
-  imports: [MenubarModule, AsyncPipe, CommonModule],
+  imports: [MenubarModule, ButtonModule, LoginComponent, AsyncPipe, NgClass],
   templateUrl: './menu.component.html',
-  styleUrl: './menu.component.scss'
+  styleUrls: ['./menu.component.scss']
 })
 
 export class MenuComponent {
-  public auth = inject(AuthService);
+  constructor(public auth: AuthService) {}
 
-  // converte Observable -> Signal (recom. para bind no template)
-  isLoggedIn = toSignal(this.auth.isLoggedIn$, { initialValue: false });
+  items$!: Observable<any[]>; // “definido depois”
+  
+  allItems = [
+    { label: 'Pessoas', icon: 'pi pi-user' },
+    { label: 'Agenda',  icon: 'pi pi-calendar' },
+    { label: 'Planos',  icon: 'pi pi-copy' }
+  ];
 
-  items = computed(() =>
-    this.isLoggedIn()
-      ? [
-          { label: 'Pessoas', icon: 'pi pi-user' },
-          { label: 'Agenda',  icon: 'pi pi-calendar' },
-          { label: 'Plano de Ação', icon: 'pi pi-copy' }
-        ]
-      : []
-  );
+  @ViewChild(LoginComponent) loginDialog!: LoginComponent;
 
-  toggleLogin() { this.isLoggedIn() ? this.auth.logout() : this.auth.login(); }
+  ngOnInit() {
+    this.items$ = this.auth.isLoggedIn$.pipe(
+      map(logged => logged ? this.allItems : [])
+    );
+  }
+
+  onAuthButtonClick() {
+    this.auth.isLoggedIn$.pipe(take(1)).subscribe(logged => {
+      if (logged) this.auth.logout();
+      else this.loginDialog.open(); // abre modal
+    });
+  }
+
+  onLoggedIn() {
+    this.auth.login(); // toggle para logado via RxJS
+  }
 }
-

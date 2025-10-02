@@ -1,14 +1,15 @@
-<div class="card">
-  <p-menubar [model]="items()">
-    <ng-template pTemplate="start">
-      <p>Sigae Lite</p>
-    </ng-template>
+<p-menubar [model]="(items$ | async) ?? []">
+  <ng-template pTemplate="start">
+    <span>Sigae Lite</span>
+  </ng-template>
 
-    <ng-template pTemplate="end">
-      <a class="flex align-items-center gap-2 cursor-pointer" (click)="toggleLogin()">
+  <ng-template pTemplate="end">
+      <a class="flex align-items-center gap-2 cursor-pointer" (click)="onAuthButtonClick()">
         <i class="pi" [ngClass]="(auth.isLoggedIn$ | async) ? 'pi-power-off' : null"></i>
         <span>{{ (auth.isLoggedIn$ | async) ? 'Quit' : 'Login' }}</span>
       </a>
-    </ng-template>
-  </p-menubar>
-</div>
+  </ng-template>
+</p-menubar>
+
+<!-- modal de login -->
+<app-login (loggedIn)="onLoggedIn()"></app-login>
