@@ -1,0 +1,11 @@
+{
+  "pessoas": [
+    {
+      "id": 2,
+      "nome": "Ana",
+      "cpf": "111.222.333-44",
+      "email": "ana@ex.com",
+      "endereco": "Rua das Flores, 1234"
+    }
+  ]
+}

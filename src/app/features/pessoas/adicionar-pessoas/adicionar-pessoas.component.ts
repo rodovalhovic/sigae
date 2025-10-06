@@ -1,10 +1,11 @@
-import { Component, inject } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { StepperModule } from 'primeng/stepper';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { FormsModule } from '@angular/forms';
 import { FloatLabel } from 'primeng/floatlabel';
+import { PessoasService } from '../../../core/services/pessoas.service';
 
 @Component({
   selector: 'app-adicionar-pessoas',
@@ -15,22 +16,24 @@ import { FloatLabel } from 'primeng/floatlabel';
 })
 export class AdicionarPessoasComponent {
 
+  pessoas = {
+    nome: '',
+    cpf: '',
+    email: '',
+    endereco: ''
+  };
+
   nome: string | undefined;
   cpf: string | undefined;
   email: string | undefined;
   endereco: string | undefined;
 
-  private router = inject(Router);
-
+  constructor(private pessoasService: PessoasService, private router: Router){}
 
   submit() {
-    if (!this.nome || !this.cpf || !this.email || !this.endereco) return;
-    this.nome = '';
-    this.cpf = '';
-    this.email = '';
-    this.endereco = '';
-
-    this.router.navigate(['/pessoas']);
+    this.pessoasService.criar(this.pessoas).subscribe(() => {
+       this.router.navigate(['/pessoas']);
+    });
   }
 
   goBack(){
