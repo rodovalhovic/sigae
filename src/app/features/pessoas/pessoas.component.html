@@ -1,1 +1,90 @@
-<p>pessoas works!</p>
+<div class="card">
+    <div class="mb-4 flex justify-content-end">
+        <p-button label="Adicionar pessoa"
+            routerLink="adicionar"
+        />
+    </div>
+
+    <p-table [value]="pessoas" dataKey="id" editable="true" class="w-full">
+        <ng-template pTemplate="header">
+            <tr>
+            <th>Nome</th>
+            <th>CPF</th>
+            <th>E-mail</th>
+            <th>Endereço</th>
+            <th style="width: 10rem"></th>
+            </tr>
+        </ng-template>
+
+        <ng-template pTemplate="body" let-row let-editing="editing" let-ri="rowIndex">
+            <tr pEditableRow>
+            <!-- Nome -->
+            <td>
+                <p-cellEditor>
+                <ng-template pTemplate="input">
+                    <input pInputText [(ngModel)]="row.nome" />
+                </ng-template>
+                <ng-template pTemplate="output">{{ row.nome }}</ng-template>
+                </p-cellEditor>
+            </td>
+
+            <!-- CPF -->
+            <td>
+                <p-cellEditor>
+                <ng-template pTemplate="input">
+                    <input pInputText [(ngModel)]="row.cpf" />
+                </ng-template>
+                <ng-template pTemplate="output">{{ row.cpf }}</ng-template>
+                </p-cellEditor>
+            </td>
+
+            <!-- E-mail -->
+            <td>
+                <p-cellEditor>
+                <ng-template pTemplate="input">
+                    <input pInputText [(ngModel)]="row.email" />
+                </ng-template>
+                <ng-template pTemplate="output">{{ row.email }}</ng-template>
+                </p-cellEditor>
+            </td>
+
+            <!-- Endereço -->
+            <td>
+                <p-cellEditor>
+                <ng-template pTemplate="input">
+                    <input pInputText [(ngModel)]="row.endereco" />
+                </ng-template>
+                <ng-template pTemplate="output">{{ row.endereco }}</ng-template>
+                </p-cellEditor>
+            </td>
+
+            <!-- Ações -->
+            <td class="flex gap-2">
+                <button pButton *ngIf="!editing"
+                        pInitEditableRow
+                        icon="pi pi-pencil"
+                        [text]="true">
+                </button>
+
+                <button pButton *ngIf="!editing"
+                        pInitEditableRow
+                        icon="pi pi-trash"
+                        [text]="true">
+                </button>
+
+                <button pButton *ngIf="editing"
+                        pSaveEditableRow
+                        icon="pi pi-check"
+                        [text]="true">
+                </button>
+
+                <button pButton *ngIf="editing"
+                        pCancelEditableRow
+                        icon="pi pi-times"
+                        [text]="true">
+                </button>
+            </td>
+            </tr>
+        </ng-template>
+    </p-table>  
+</div>
