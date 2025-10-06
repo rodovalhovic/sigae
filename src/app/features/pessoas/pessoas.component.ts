@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { TableModule } from 'primeng/table';
@@ -11,7 +11,7 @@ import { PessoasService } from '../../core/services/pessoas.service';
 @Component({
   selector: 'app-pessoas',
   standalone: true,
-  imports: [ TableModule, CommonModule, ButtonModule, InputTextModule, FormsModule, ButtonModule ],
+  imports: [ TableModule, CommonModule, ButtonModule, InputTextModule, FormsModule, ButtonModule, RouterLink ],
   templateUrl: './pessoas.component.html',
   styleUrl: './pessoas.component.scss'
 })

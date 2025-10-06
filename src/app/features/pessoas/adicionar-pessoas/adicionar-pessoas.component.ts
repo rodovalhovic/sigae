@@ -23,11 +23,6 @@ export class AdicionarPessoasComponent {
     endereco: ''
   };
 
-  nome: string | undefined;
-  cpf: string | undefined;
-  email: string | undefined;
-  endereco: string | undefined;
-
   constructor(private pessoasService: PessoasService, private router: Router){}
 
   submit() {

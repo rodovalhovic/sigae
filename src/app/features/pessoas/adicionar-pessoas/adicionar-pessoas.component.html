@@ -1,36 +1,36 @@
 <div class="card flex flex-wrap justify-content-center">
-    <div class="flex align-items-center flex-column w-9	">
+    <div class="flex align-items-center flex-column w-9">
         <div class="mb-6">
             <span class="text-2xl block">Cadastro de pessoas</span>
             <span class="text-xs"><b>ATENÇÃO!</b> Todos os campos são obrigatórios</span>
         </div>
 
-        <div class="flex items-center flex-column gap-4 mb-8 w-9	">
+        <div class="flex items-center flex-column gap-4 mb-8 w-9">
             <p-floatlabel variant="on" class="field">
-                <input pInputText id="nome" [(ngModel)]="nome" autocomplete="off" />
+                <input pInputText id="nome" [(ngModel)]="pessoas.nome" autocomplete="off" />
                 <label for="nome">Nome</label>
             </p-floatlabel>
 
             <p-floatlabel variant="on" class="field">
-                <input pInputText id="cpf" [(ngModel)]="cpf" autocomplete="off" />
+                <input pInputText id="cpf" [(ngModel)]="pessoas.cpf" autocomplete="off" />
                 <label for="cpf">CPF</label>
             </p-floatlabel>
 
             <p-floatlabel variant="on" class="field">
-                <input pInputText id="email" [(ngModel)]="email" autocomplete="off" />
+                <input pInputText id="email" [(ngModel)]="pessoas.email" autocomplete="off" />
                 <label for="email">E-mail</label>
             </p-floatlabel>
 
             <p-floatlabel variant="on" class="field">
-                <input pInputText id="endereco" [(ngModel)]="endereco" autocomplete="off" />
+                <input pInputText id="endereco" [(ngModel)]="pessoas.endereco" autocomplete="off" />
                 <label for="endereco">Endereço</label>
             </p-floatlabel> 
         </div>
 
         <div class="flex justify-end gap-2">
             <p-button label="Adicionar"
-            (click)="submit()"
-            [disabled]="!nome || !cpf || !email || !endereco" 
+                (click)="submit()"
+                [disabled]="!pessoas.nome || !pessoas.cpf || !pessoas.email || !pessoas.endereco"
             />
 
             <p-button label="Cancelar" (click)="goBack()"></p-button>
