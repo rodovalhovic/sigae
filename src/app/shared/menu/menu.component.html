@@ -1,6 +1,18 @@
 <p-menubar [model]="(items$ | async) ?? []">
   <ng-template pTemplate="start">
-    <span>Sigae Lite</span>
+    <!-- Se estiver logado, o título é um link -->
+    <a
+      *ngIf="auth.isLoggedIn$ | async; else plainTitle"
+      routerLink="/home"
+      class="text-decoration-none"
+    >
+      <span class="text-lg font-semibold text-primary">Sigae Lite</span>
+    </a>
+
+    <!-- Caso não esteja logado -->
+    <ng-template #plainTitle>
+      <span class="text-lg font-semibold text-primary">Sigae Lite</span>
+    </ng-template>
   </ng-template>
 
   <ng-template pTemplate="end">
