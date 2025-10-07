@@ -1,0 +1,25 @@
+{
+  "pessoas": [
+    {
+      "id": 1,
+      "nome": "Ana",
+      "cpf": "111.222.333-44",
+      "email": "ana@ex.com",
+      "endereco": "Rua das Flores, 1234"
+    },
+    {
+      "nome": "Victoria Rodovalho",
+      "cpf": "567324456-70",
+      "email": "victorialicia22@gmail.com",
+      "endereco": "Rua Monteiro Lobato, Praia Grande-SP",
+      "id": 3
+    },
+    {
+      "nome": "João da Silva",
+      "cpf": "987.392.402-22",
+      "email": "joao.silva@examplo.com",
+      "endereco": "R Maria de Jesus, SP",
+      "id": 4
+    }
+  ]
+}

@@ -1,1 +1,107 @@
-<p>pessoas works!</p>
+<div class="card">
+    <div class="top flex align-items-center justify-content-between mb-6 mt-6">
+        <div class="titulo">
+            <h2 class="m-0">Pessoas</h2>
+        </div>
+
+        <div>
+            <button
+            pButton
+            label="Adicionar pessoa"
+            icon="pi pi-plus"
+            routerLink="adicionar"
+            class="p-button-success"
+            ></button>
+        </div>
+    </div>
+
+    <p-table [value]="pessoas" dataKey="id" editMode="row" [tableStyle]="{'min-width': '50rem'}">
+        <ng-template #header>
+            <tr>
+                <th style="width:20%">Nome</th>
+                <th style="width:20%">CPF</th>
+                <th style="width:20%">E-mail</th>
+                <th style="width:20%">Endereço</th>
+                <th style="width:20%"></th>
+            </tr>
+        </ng-template>
+        
+        <ng-template #body let-row let-editing="editing" let-ri="rowIndex">
+            <tr [pEditableRow]="row">
+                <!-- Nome -->
+                <td>
+                    <p-cellEditor>
+                        <ng-template pTemplate="input">
+                            <input
+                                pInputText type="text"
+                                [(ngModel)]="row.nome" />
+                        </ng-template>
+                        <ng-template pTemplate="output">
+                            {{row.nome}}
+                        </ng-template>
+                    </p-cellEditor>
+                </td>
+                <!-- CPF -->
+                <td>
+                    <p-cellEditor>
+                        <ng-template pTemplate="input">
+                            <input
+                                pInputText type="text"
+                                [(ngModel)]="row.cpf"
+                                required />
+                        </ng-template>
+                        <ng-template pTemplate="output">
+                            {{row.cpf}}
+                        </ng-template>
+                    </p-cellEditor>
+                </td>
+                <!-- E-mail -->
+                <td>
+                    <p-cellEditor>
+                        <ng-template pTemplate="input">
+                            <input pInputText [(ngModel)]="row.email" />
+                        </ng-template>
+                        <ng-template pTemplate="output">{{ row.email }}</ng-template>
+                    </p-cellEditor>
+                </td>
+                <!-- Endereço -->
+                <td>
+                    <p-cellEditor>
+                        <ng-template pTemplate="input">
+                            <input pInputText [(ngModel)]="row.endereco" />
+                        </ng-template>
+                        <ng-template pTemplate="output">{{ row.endereco }}</ng-template>
+                    </p-cellEditor>
+                </td>
+
+                <!-- Ações -->
+                <td>
+                    <div class="flex justify-content-end gap-2">
+                        <!--- Editar / Excluir -->
+                        <button *ngIf="!editing" 
+                            pButton pRipple type="button" 
+                            pInitEditableRow icon="pi pi-pencil" (click)="editar(row)" 
+                            text rounded severity="secondary"
+                        ></button>
+                        <button *ngIf="!editing" 
+                            pButton icon="pi pi-trash" [text]="true" (click)="excluir(row.id)">
+                        </button>
+                        
+                        <!--- Salvar edição / Cancelar -->
+                        <button *ngIf="editing"
+                            pButton pRipple type="button" pSaveEditableRow
+                            icon="pi pi-check" (click)="salvar(row, ri)"
+                            text rounded severity="secondary"
+                        ></button>
+                        <button *ngIf="editing"
+                            pButton pRipple type="button" pCancelEditableRow
+                            icon="pi pi-times"
+                            (click)="cancelar(row, ri)"
+                            text rounded severity="secondary"
+                        ></button>
+                    </div>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>

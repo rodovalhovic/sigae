@@ -1,0 +1,28 @@
+<p-menubar [model]="(items$ | async) ?? []">
+  <ng-template pTemplate="start">
+    <!-- Se estiver logado, o título é um link -->
+    <a
+      *ngIf="auth.isLoggedIn$ | async; else plainTitle"
+      routerLink="/home"
+      class="text-decoration-none"
+    >
+      <span class="text-lg font-semibold text-primary">Sigae Lite</span>
+    </a>
+
+    <!-- Caso não esteja logado -->
+    <ng-template #plainTitle>
+      <span class="text-lg font-semibold text-primary">Sigae Lite</span>
+    </ng-template>
+  </ng-template>
+
+  <ng-template pTemplate="end">
+    <a class="flex align-items-center gap-2 cursor-pointer" (click)="onAuthButtonClick()">
+      <i class="pi" [ngClass]="(auth.isLoggedIn$ | async) ? 'pi-power-off' : null"></i>
+      <span [textContent]="(auth.isLoggedIn$ | async) ? 'Quit' : 'Login'"></span>
+    </a>
+  </ng-template>
+
+</p-menubar>
+
+<!-- modal de login -->
+<app-login (loggedIn)="onLoggedIn()"></app-login>
