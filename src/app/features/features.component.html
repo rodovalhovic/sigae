@@ -1,7 +1,56 @@
-<div class="titulo">
-  <p class="f-21 semibold">Bem-vindo ao SIGAE</p>
+<div>
+  <app-home-publica></app-home-publica>
 </div>
 
-<div *ngIf="totals$ | async as t" class="mt-4">
-  <p>Total de pessoas cadastradas: <b>{{ t.pessoas }}</b></p>
+<div class="surface-section py-4 px-4 md:px-6 lg:px-8">
+  <p-divider></p-divider>
+
+  <!-- Totais -->
+  <div *ngIf="totals$ | async as t" class="grid mt-4 flex justify-content-center">
+    <div class="col-12 md:col-6 lg:col-4">
+      <p-card header="Pessoas" styleClass="h-full shadow-2 border-round-md">
+        <div class="flex flex-column align-items-center justify-content-center h-full">
+          <span class="text-lg">Total de Pessoas</span>
+          <span class="text-4xl font-bold text-primary mt-2">{{ t.pessoas }}</span>
+        </div>
+      </p-card>
+    </div>
+
+    <div class="col-12 md:col-6 lg:col-4">
+      <p-card header="Agenda" styleClass="h-full shadow-2 border-round-md">
+        <div class="flex flex-column align-items-center justify-content-center h-full">
+          <span class="text-lg">Eventos Cadastrados</span>
+          <span class="text-4xl font-bold text-primary mt-2">{{ t.eventos }}</span>
+        </div>
+      </p-card>
+    </div>
+  </div>
+
+  <!-- Mini compilado de eventos -->
+  <div class="mt-6 flex flex-column align-items-center">
+    <h3 class="mb-3">📅 Próximos Eventos</h3>
+
+    <div *ngIf="eventsPreview$ | async as evs; else semEventos" class="grid w-full flex flex-row justify-content-center">
+      <div *ngFor="let ev of evs" class="col-12 md:col-6 lg:col-4">
+        <p-card styleClass="h-full shadow-2 border-round-md">
+          <ng-template pTemplate="title">
+            <span class="text-lg font-semibold text-primary">{{ ev.title }}</span>
+          </ng-template>
+
+          <ng-template pTemplate="content">
+            <div class="text-sm text-secondary mb-2">
+              {{ ev.date | date:'dd/MM/yyyy, HH:mm' }}
+            </div>
+            <div *ngIf="ev.assunto" class="text-sm">
+              <b>Assunto:</b> {{ ev.assunto }}
+            </div>
+          </ng-template>
+        </p-card>
+      </div>
+    </div>
+
+    <ng-template #semEventos>
+      <p class="text-secondary mt-2">Nenhum evento encontrado.</p>
+    </ng-template>
+  </div>
 </div>

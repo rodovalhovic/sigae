@@ -6,6 +6,7 @@ import { PasswordModule } from 'primeng/password';
 import { ButtonModule } from 'primeng/button';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { EsqueciSenhaComponent } from './esqueci-senha/esqueci-senha.component';
+import { Router } from '@angular/router';
 
 declare const grecaptcha: any;
 
@@ -31,7 +32,7 @@ export class LoginComponent {
 
   siteKey = '6Ldd1uArAAAAAAehBI1ymwRhnoQiN6y4WXxMKnO7';
 
-  constructor(private dialogService: DialogService) {}
+  constructor(private dialogService: DialogService, private router: Router) {}
 
   ngAfterViewInit() {
     const waitForCaptcha = () => {
@@ -86,6 +87,7 @@ export class LoginComponent {
 
     this.loggedIn.emit(); // notifica o menu/auth
     this.close(); // fecha o modal
+    this.router.navigate(['/home']); // redireciona para a home
 
     // Limpeza do CAPTCHA
     if (this.widgetId !== null) grecaptcha.reset(this.widgetId);
