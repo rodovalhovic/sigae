@@ -4,11 +4,12 @@
   </ng-template>
 
   <ng-template pTemplate="end">
-      <a class="flex align-items-center gap-2 cursor-pointer" (click)="onAuthButtonClick()">
-        <i class="pi" [ngClass]="(auth.isLoggedIn$ | async) ? 'pi-power-off' : null"></i>
-        <span>{{ (auth.isLoggedIn$ | async) ? 'Quit' : 'Login' }}</span>
-      </a>
+    <a class="flex align-items-center gap-2 cursor-pointer" (click)="onAuthButtonClick()">
+      <i class="pi" [ngClass]="(auth.isLoggedIn$ | async) ? 'pi-power-off' : null"></i>
+      <span [textContent]="(auth.isLoggedIn$ | async) ? 'Quit' : 'Login'"></span>
+    </a>
   </ng-template>
+
 </p-menubar>
 
 <!-- modal de login -->

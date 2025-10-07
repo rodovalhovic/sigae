@@ -5,15 +5,16 @@ import { ButtonModule } from 'primeng/button';
 import { LoginComponent } from '../../features/login/login.component';
 import { AuthService } from '../../core/services/auth-service.service';
 import { Observable } from 'rxjs';
-import { AsyncPipe, NgClass } from '@angular/common';
+import { AsyncPipe, CommonModule, NgClass } from '@angular/common';
 
 
 @Component({
   selector: 'app-menu',
   standalone: true,
-  imports: [MenubarModule, ButtonModule, LoginComponent, AsyncPipe, NgClass],
+  imports: [CommonModule, MenubarModule, ButtonModule, LoginComponent, AsyncPipe, NgClass],
   templateUrl: './menu.component.html',
-  styleUrls: ['./menu.component.scss']
+  styleUrls: ['./menu.component.scss'],
+  host: { ngSkipHydration: '' }
 })
 
 export class MenuComponent {

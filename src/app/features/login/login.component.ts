@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Output, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { DialogModule } from 'primeng/dialog';
 import { InputTextModule } from 'primeng/inputtext';
@@ -6,6 +6,8 @@ import { PasswordModule } from 'primeng/password';
 import { ButtonModule } from 'primeng/button';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { EsqueciSenhaComponent } from './esqueci-senha/esqueci-senha.component';
+
+declare const grecaptcha: any;
 
 @Component({
   selector: 'app-login',
@@ -17,13 +19,41 @@ import { EsqueciSenhaComponent } from './esqueci-senha/esqueci-senha.component';
 })
 export class LoginComponent {
   @Output() loggedIn = new EventEmitter<void>();
+  @ViewChild('captchaContainer', { static: true }) captchaContainer!: ElementRef<HTMLDivElement>;
 
   visible = false;
   email = '';
   senha = '';
+  erro = '';
+  sucesso = false;
   ref?: DynamicDialogRef; 
+  widgetId: number | null = null;
+
+  siteKey = '6Ldd1uArAAAAAAehBI1ymwRhnoQiN6y4WXxMKnO7';
 
   constructor(private dialogService: DialogService) {}
+
+  ngAfterViewInit() {
+    const waitForCaptcha = () => {
+      const g = (window as any).grecaptcha;
+      if (g?.render) {
+        this.widgetId = grecaptcha.render(this.captchaContainer.nativeElement, {
+          sitekey: this.siteKey,
+          callback: (token: string) => {
+            // guarda o token quando o usuário resolve o captcha
+            this.sucesso = false;
+            this.erro = '';
+            sessionStorage.setItem('captchaToken', token);
+          },
+          'expired-callback': () => sessionStorage.removeItem('captchaToken'),
+          'error-callback': () => sessionStorage.removeItem('captchaToken'),
+        });
+      } else {
+        setTimeout(waitForCaptcha, 100);
+      }
+    };
+    waitForCaptcha();
+  }
 
   open() {
     this.visible = true;
@@ -34,14 +64,32 @@ export class LoginComponent {
   }
 
   submit() {
+    this.erro = '';
+    this.sucesso = false;
+
+    // Validação de campos
     if (!this.email || !this.senha) return;
 
-    this.loggedIn.emit(); // notifica o menu/auth
-    this.close();
+    const token = sessionStorage.getItem('captchaToken');
 
-    // limpa os campos após o login
-    this.email = '';
-    this.senha = '';
+    // Verificação do CAPTCHA
+    if (!token) {
+      this.erro = 'Por favor, confirme o CAPTCHA antes de entrar.';
+      return;
+    }
+
+    // "Login fake" aprovado
+    this.sucesso = true;
+    console.log('E-mail:', this.email);
+    console.log('Senha:', this.senha);
+    console.log('Token reCAPTCHA:', token);
+
+    this.loggedIn.emit(); // notifica o menu/auth
+    this.close(); // fecha o modal
+
+    // Limpeza do CAPTCHA
+    if (this.widgetId !== null) grecaptcha.reset(this.widgetId);
+    sessionStorage.removeItem('captchaToken');
   }
 
   abrirEsqueciSenha() {
