@@ -1,10 +1,18 @@
 <div class="card">
-    <div class="mb-4 flex justify-content-end">
-        <button pButton
+    <div class="top flex align-items-center justify-content-between mb-6 mt-6">
+        <div class="titulo">
+            <h2 class="m-0">Pessoas</h2>
+        </div>
+
+        <div>
+            <button
+            pButton
             label="Adicionar pessoa"
             icon="pi pi-plus"
-            routerLink="adicionar">
-        </button>
+            routerLink="adicionar"
+            class="p-button-success"
+            ></button>
+        </div>
     </div>
 
     <p-table [value]="pessoas" dataKey="id" editMode="row" [tableStyle]="{'min-width': '50rem'}">

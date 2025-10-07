@@ -13,14 +13,15 @@ import { PessoasService } from '../../core/services/pessoas.service';
   standalone: true,
   imports: [ TableModule, CommonModule, ButtonModule, InputTextModule, FormsModule, ButtonModule, RouterLink ],
   templateUrl: './pessoas.component.html',
-  styleUrl: './pessoas.component.scss'
+  styleUrl: './pessoas.component.scss',
+  host: { ngSkipHydration: '' }
 })
 
 export class PessoasComponent {
   pessoas: Pessoa[] = [];
   clonedPessoas: { [s: string]: Pessoa } = {};
 
-  constructor(private pessoasService: PessoasService, private router: Router, private route: ActivatedRoute) { }
+  constructor(private pessoasService: PessoasService, private router: Router) { }
 
   ngOnInit(): void {
     this.pessoasService.listar().subscribe({
