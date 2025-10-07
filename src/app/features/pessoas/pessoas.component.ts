@@ -17,21 +17,18 @@ import { PessoasService } from '../../core/services/pessoas.service';
 })
 
 export class PessoasComponent {
-
   pessoas: Pessoa[] = [];
   clonedPessoas: { [s: string]: Pessoa } = {};
 
   constructor(private pessoasService: PessoasService, private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.pessoasService.listar().subscribe(dados => this.pessoas = dados);
-
-    const id = this.route.snapshot.paramMap.get('id');
-    if (id) {
-      this.pessoasService.buscarPorId(+id).subscribe((pessoa) => { 
-        this.pessoas = [pessoa];
-      });
-    }
+    this.pessoasService.listar().subscribe({
+      next: (dados) => {
+        this.pessoas = dados;
+      },
+      error: (err) => console.error('Erro ao carregar pessoas:', err)
+    });
   }
 
   excluir(pessoaId: number): void {
@@ -67,5 +64,4 @@ export class PessoasComponent {
     this.pessoas[index] = this.clonedPessoas[String(pessoa.id)]; // restaura os dados originais
     delete this.clonedPessoas[String(pessoa.id)];
   }
-
 }

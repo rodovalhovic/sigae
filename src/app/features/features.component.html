@@ -1,1 +1,7 @@
-<p>features works!</p>
+<div class="titulo">
+  <p class="f-21 semibold">Bem-vindo ao SIGAE</p>
+</div>
+
+<div *ngIf="totals$ | async as t" class="mt-4">
+  <p>Total de pessoas cadastradas: <b>{{ t.pessoas }}</b></p>
+</div>
