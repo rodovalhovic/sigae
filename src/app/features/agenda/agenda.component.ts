@@ -41,6 +41,36 @@ export class AgendaComponent {
         participantes: ['Equipe TI', 'Gestores'],
         descricao: 'Apresentar métricas do SIGAE.'
       } as Extra
+    },
+    {
+      title: 'Treinamento Interno – Novas Funcionalidades',
+      start: '2025-10-15T09:00:00',
+      end: '2025-10-15T11:30:00',
+      extendedProps: {
+        assunto: 'Capacitação',
+        participantes: ['Time de Desenvolvimento', 'Suporte Técnico'],
+        descricao: 'Treinamento sobre as novas funcionalidades implementadas no sistema.'
+      } as Extra
+    },
+    {
+      title: 'Revisão de Indicadores Mensais',
+      start: '2025-10-20T14:00:00',
+      end: '2025-10-20T15:00:00',
+      extendedProps: {
+        assunto: 'Análise de Desempenho',
+        participantes: ['Gestores', 'Equipe de Qualidade'],
+        descricao: 'Avaliação dos indicadores do mês e definição de metas de melhoria.'
+      } as Extra
+    },
+    {
+      title: 'Planejamento de Sprint 12',
+      start: '2025-10-25T09:30:00',
+      end: '2025-10-25T11:00:00',
+      extendedProps: {
+        assunto: 'Scrum / Planejamento',
+        participantes: ['Equipe de Desenvolvimento', 'Product Owner'],
+        descricao: 'Planejar as atividades e prioridades para a próxima sprint.'
+      } as Extra
     }
   ];
 

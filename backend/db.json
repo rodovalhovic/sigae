@@ -13,6 +13,13 @@
       "email": "victorialicia22@gmail.com",
       "endereco": "Rua Monteiro Lobato, Praia Grande-SP",
       "id": 3
+    },
+    {
+      "nome": "João da Silva",
+      "cpf": "987.392.402-22",
+      "email": "joao.silva@examplo.com",
+      "endereco": "R Maria de Jesus, SP",
+      "id": 4
     }
   ]
 }
