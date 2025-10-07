@@ -1,1 +1,22 @@
-<p>agenda works!</p>
+<div class="p-4">
+  <h2>Agenda do Usuário</h2>
+  <full-calendar [options]="calendarOptions"></full-calendar>
+</div>
+
+<p-dialog
+  [(visible)]="visible"
+  [modal]="true"
+  [draggable]="false"
+  [resizable]="false"
+  [style]="{ width: '32rem' }"
+  [dismissableMask]="true"
+  (onHide)="closeDialog()"
+  header="Detalhes do evento"
+>
+  <ng-container *ngIf="selected as ev">
+    <h3 class="mt-0 mb-2">{{ ev.title }}</h3>
+    <p><b>Assunto:</b> {{ ev.assunto }}</p>
+    <p><b>Participantes:</b> {{ ev.participantes.join(', ') }}</p>
+    <p style="white-space: pre-wrap"><b>Descrição/Pauta:</b> {{ ev.descricao }}</p>
+  </ng-container>
+</p-dialog>
