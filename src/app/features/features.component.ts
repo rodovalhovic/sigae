@@ -2,12 +2,10 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { combineLatest, map, Observable } from 'rxjs';
 import { PessoasService } from '../core/services/pessoas.service';
-import { AgendaService } from '../core/agenda.service';
 import { CardModule } from 'primeng/card';
 import { DividerModule } from 'primeng/divider';
 import { HomePublicaComponent } from "./home-publica/home-publica.component";
-
-type EventoExtra = { assunto?: string };
+import { AgendaEvent, AgendaService } from '../core/services/agenda.service';
 
 @Component({
   selector: 'app-features',
@@ -40,18 +38,27 @@ export class FeaturesComponent {
 
     // preview de eventos
     this.eventsPreview$ = this.agendaService.events$.pipe(
-      map(events =>
+      map((events: AgendaEvent[]) =>
         events
-          .map(e => {
-            // start pode ser string | Date | undefined
-            const raw = (e.start as Date) ?? (e as any).startStr ?? e['date'];
-            const date = raw instanceof Date ? raw : new Date(raw);
-            const assunto = ((e.extendedProps as EventoExtra) || {}).assunto ?? '';
-            return { title: e.title ?? '', date, assunto };
+          .map((e: AgendaEvent) => {
+            // start pode ser Date | string | undefined. Alguns cenários expõem startStr.
+            const raw = e['start'] ?? (e as any).startStr as string | Date | undefined;
+
+            const date =
+              raw instanceof Date ? raw :
+              raw ? new Date(raw) : undefined;
+
+            if (!date || Number.isNaN(date.getTime())) return null;
+
+            const assunto = e.extendedProps?.assunto ?? '';
+            return { title: e['title'] ?? '', date, assunto };
           })
-          .filter(e => !Number.isNaN(e.date.getTime()))
+          // type guard: remove null e informa o TS do shape final
+          .filter(
+            (v): v is { title: string; date: Date; assunto: string } => v !== null
+          )
           .sort((a, b) => a.date.getTime() - b.date.getTime())
-          .slice(0, 5) // limite: 5 próximos
+          .slice(0, 5)
       )
     );
   }
