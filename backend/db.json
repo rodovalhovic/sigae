@@ -21,5 +21,56 @@
       "endereco": "R Maria de Jesus, SP",
       "id": 4
     }
+  ],
+ "eventos": [
+    {
+      "title": "Reunião de Alinhamento",
+      "start": "2025-10-10T10:00:00",
+      "end": "2025-10-10T11:00:00",
+      "extendedProps": {
+        "assunto": "Reunião",
+        "participantes": ["Victoria", "Thiago"],
+        "descricao": "Pauta: próximos passos do plano de melhoria."
+      }
+    },
+    {
+      "title": "Apresentação de Resultados",
+      "start": "2025-10-12T15:00:00",
+      "extendedProps": {
+        "assunto": "Apresentação",
+        "participantes": ["Equipe TI", "Gestores"],
+        "descricao": "Apresentar métricas do SIGAE."
+      }
+    },
+    {
+      "title": "Treinamento Interno – Novas Funcionalidades",
+      "start": "2025-10-15T09:00:00",
+      "end": "2025-10-15T11:30:00",
+      "extendedProps": {
+        "assunto": "Capacitação",
+        "participantes": ["Time de Desenvolvimento", "Suporte Técnico"],
+        "descricao": "Treinamento sobre as novas funcionalidades implementadas no sistema."
+      }
+    },
+    {
+      "title": "Revisão de Indicadores Mensais",
+      "start": "2025-10-20T14:00:00",
+      "end": "2025-10-20T15:00:00",
+      "extendedProps": {
+        "assunto": "Análise de Desempenho",
+        "participantes": ["Gestores", "Equipe de Qualidade"],
+        "descricao": "Avaliação dos indicadores do mês e definição de metas de melhoria."
+      }
+    },
+    {
+      "title": "Planejamento de Sprint 12",
+      "start": "2025-10-25T09:30:00",
+      "end": "2025-10-25T11:00:00",
+      "extendedProps": {
+        "assunto": "Scrum / Planejamento",
+        "participantes": ["Equipe de Desenvolvimento", "Product Owner"],
+        "descricao": "Planejar as atividades e prioridades para a próxima sprint."
+      }
+    }
   ]
 }
